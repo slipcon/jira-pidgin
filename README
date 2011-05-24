@@ -1,0 +1,17 @@
+Turns jira CRs in IM text in to clickable links.
+
+Requires: 
+ - pidgin 2.7.x (2.6.x has a bug in the perl plugins)
+     
+
+Install:
+ - Edit your URL in to the script
+ - copy it to ~/.purple/plugins/
+ - Restart pidgin, enable in the plugin setup
+
+
+To do:
+ - This should in theory work with windows Pidgin & active perl but
+   I don't know how to set up.
+ - Prefs Panel for the URL instead of editing the perl script
+ - Support for multiple base-URLs (depending on project name?)

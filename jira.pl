@@ -30,16 +30,16 @@ sub plugin_load {
 
     Purple::Signal::connect($convs_handle, "receiving-im-msg",
         $plugin,
-        \&receiving_im_msg_cb, $plugin);
+        \&receiving_msg_cb, $plugin);
     Purple::Signal::connect($convs_handle, "receiving-chat-msg",
         $plugin,
-        \&receiving_im_msg_cb, $plugin);
+        \&receiving_msg_cb, $plugin);
     Purple::Signal::connect($convs_handle, "writing-im-msg",
         $plugin,
-        \&writing_im_msg_cb, $plugin);
+        \&writing_msg_cb, $plugin);
     Purple::Signal::connect($convs_handle, "writing-chat-msg",
         $plugin,
-        \&writing_im_msg_cb, $plugin);
+        \&writing_msg_cb, $plugin);
     Purple::Signal::connect($convs_handle, "sending-im-msg",
         $plugin,
         \&sending_im_msg_cb, $plugin);
@@ -55,46 +55,44 @@ sub plugin_unload {
 
 sub sending_im_msg_cb {
     my ($account, $sender, $msg) = @_;
-    my $jiraurl = Purple::Prefs::get_string("/plugins/core/jira/jiraurl");
-
-	return if ($msg =~ /https?:\/\//);
-	return if ($jiraurl eq "" );
-
-	$msg =~ s/(\w+)-(\d+)/<a href=\"$jiraurl\/$1-$2\"\>$1-$2\<\/a\>/g;
-	$_[2] = $msg;
+    $msg = replace_jira($msg);
+    if ($msg) {
+        $_[2] = $msg
+    }
 }
 
 sub sending_chat_msg_cb {
     my ($account, $msg) = @_;
-    my $jiraurl = Purple::Prefs::get_string("/plugins/core/jira/jiraurl");
-
-	return if ($msg =~ /https?:\/\//);
-	return if ($jiraurl eq "" );
-
-	$msg =~ s/(\w+)-(\d+)/<a href=\"$jiraurl\/$1-$2\"\>$1-$2\<\/a\>/g;
-	$_[1] = $msg;
+    $msg = replace_jira($msg);
+    if ($msg) {
+        $_[1] = $msg
+    }
 }
 
-sub writing_im_msg_cb {
+sub writing_msg_cb {
     my ($account, $sender, $msg) = @_;
-    my $jiraurl = Purple::Prefs::get_string("/plugins/core/jira/jiraurl");
-
-	return if ($msg =~ /https?:\/\//);
-	return if ($jiraurl eq "" );
-
-	$msg =~ s/(\w+)-(\d+)/<a href=\"$jiraurl\/$1-$2\"\>$1-$2\<\/a\>/g;
-	$_[2] = $msg;
+    $msg = replace_jira($msg);
+    if ($msg) {
+        $_[2] = $msg
+    }
 }
 
-sub receiving_im_msg_cb {
+
+sub receiving_msg_cb {
     my ($account, $who, $msg, $conv, $flags, $data) = @_;
+    $msg = replace_jira($msg);
+    if ($msg) {
+        $_[2] = $msg
+    }
+}
+
+sub replace_jira {
+    my $msg = shift;
     my $jiraurl = Purple::Prefs::get_string("/plugins/core/jira/jiraurl");
-
-	return if ($msg =~ /https?:\/\//);
-	return if ($jiraurl eq "" );
-
-	$msg =~ s/(\w+)-(\d+)/<a href=\"$jiraurl\/$1-$2\"\>$1-$2\<\/a\>/g;
-    $_[2] = $msg;
+    return if ($msg =~ /https?:\/\//);
+    return if ($jiraurl eq "" );
+    $msg =~ s/(\w+)-(\d+)/<a href=\"$jiraurl\/$1-$2\"\>$1-$2\<\/a\>/g;
+    return $msg;
 }
 
 sub prefs_info_cb {

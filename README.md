@@ -1,4 +1,12 @@
-Turns jira CRs in IM text in to clickable links.
+Turns JIRA CRs in IM text into clickable links. For example if you configure your URL base as "https://jira.secondlife.com/browse" and then type:
+```
+SUN-114
+```
+Everyone with a Pidgin client will see it as a link:
+```
+[SUN-114](https://jira.secondlife.com/browse/SUN-114)
+```
+Other users do not need the plugin for this to work.
 
 Requires: 
 * pidgin 2.7.x (2.6.x has a bug in the perl plugins)

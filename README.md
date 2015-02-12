@@ -6,8 +6,8 @@ Requires:
 
 Install:
 * Copy it to ~/.purple/plugins/
-* Restart pidgin, enable in the plugin setup, hit configure and enter the Jira base url (ie, 'http://jira.myhost.com/browse')
-* For help on Windows see [https://developer.pidgin.im/wiki/Scripting%20and%20Plugins#WhydoesntmyPerlpluginshowupinthePluginsdialog](Why doesn't my Perl plugin show up in the Plugins dialog? (pidgin.im)), i.e.:
+* Restart pidgin, enable in the plugin setup, hit configure and enter the Jira base url (i.e, 'http://jira.myhost.com/browse')
+* For help on Windows see [Why doesn't my Perl plugin show up in the Plugins dialog? (pidgin.im)](https://developer.pidgin.im/wiki/Scripting%20and%20Plugins#WhydoesntmyPerlpluginshowupinthePluginsdialog), i.e:
     * Install correct version of Strawberry Perl, make sure it's on PATH
 	* Check Perl is enabled from Pidgin's Help menu -> Build Information
 
